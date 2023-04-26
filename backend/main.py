@@ -6,13 +6,34 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import numpy as np
 import pandas as pd
-import joblib
-from joblib import load
 import sys
 import json
-sys.modules['sklearn.externals.joblib'] = joblib
+import dill
 
 app = FastAPI()
+
+filename = "C:/Users/andre/Downloads/modelo100.joblib"
+with open(filename, 'rb') as f:
+   pipeline = dill.load(f)
+import re
+import stanza
+import unicodedata
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from stanza.pipeline.processor import Processor, register_processor
+stanza.download('es')
+from num2words import num2words
+from langdetect import detect
+
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+
+df2 = {'review_es': ['hola pelicula mala triste sueño']}
+df2 = pd.DataFrame(df2)
+result = pipeline.predict(df2)
+print(result)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,18 +43,35 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 def read_root():
-   return {"InteligenciaNegocios": "Proyecto1Etapa2"}
+    return {"InteligenciaNegocios": "Proyecto1Etapa2"}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-   return {"item_id": item_id, "q": q}
 
 @app.post("/predict")
 def make_predictions():
-    datamodel = {'words': ['película basar arte frank frazetta mítico ilustrador fantasía alguno personaje pintura distribuidor muerte ser mejor ejemplo sorprendentemente animación lograr mantener sensación arte original bakshi ser bien conocer uso pesado rotocopio técnica rastrear secuencia acción vivo película ser excepción embargo dado tema película ser bastante realista personaje ser humano funcionar bastante bien realmente gustar aquí ser trama vez tener historia personaje interesante buen secuencia acción verdadero horrible villano hermoso nena película tener sensación mejor cómics conan ser sorprendente roy thomas ser escritor serie marvel cimmerio favorito ser grito lejano acción vivo mierda conan hablar película b género recomendar definitivamente']}
-    df = pd.DataFrame(datamodel)
-    model = load("C:/Users/andre/OneDrive/Documentos/Sistemas/BI/BI_Proyecto1/backend/assets/modelo.joblib")
-    result = model.predict(df)
-    return json.dumps({"result": result.tolist()})
+
+    filename = "C:/Users/andre/Downloads/modelo100.joblib"
+    with open(filename, 'rb') as f:
+        pipeline = dill.load(f)
+    import re
+    import stanza
+    import unicodedata
+    import nltk
+    nltk.download('stopwords')
+    from nltk.corpus import stopwords
+    from stanza.pipeline.processor import Processor, register_processor
+    stanza.download('es')
+
+    from num2words import num2words
+    from langdetect import detect
+
+    nltk.download('stopwords')
+    from nltk.corpus import stopwords
+
+    df2 = {'review_es': ['hola pelicula mala triste sueño']}
+    df2 = pd.DataFrame(df2)
+    result = pipeline.predict(df2)
+    print(result)
+    #return json.dumps({"result": result.tolist()})
