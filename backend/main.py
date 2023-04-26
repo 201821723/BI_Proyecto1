@@ -12,27 +12,27 @@ import dill
 
 app = FastAPI()
 
-filename = "C:/Users/andre/Downloads/modelo100.joblib"
-with open(filename, 'rb') as f:
-   pipeline = dill.load(f)
-import re
-import stanza
-import unicodedata
-import nltk
-nltk.download('stopwords')
-from nltk.corpus import stopwords
-from stanza.pipeline.processor import Processor, register_processor
-stanza.download('es')
-from num2words import num2words
-from langdetect import detect
+# filename = "C:/Users/andre/Downloads/modelo100.joblib"
+# with open(filename, 'rb') as f:
+#    pipeline = dill.load(f)
+# import re
+# import stanza
+# import unicodedata
+# import nltk
+# nltk.download('stopwords')
+# from nltk.corpus import stopwords
+# from stanza.pipeline.processor import Processor, register_processor
+# stanza.download('es')
+# from num2words import num2words
+# from langdetect import detect
 
-nltk.download('stopwords')
-from nltk.corpus import stopwords
+# nltk.download('stopwords')
+# from nltk.corpus import stopwords
 
-df2 = {'review_es': ['hola pelicula mala triste sueño']}
-df2 = pd.DataFrame(df2)
-result = pipeline.predict(df2)
-print(result)
+# df2 = {'review_es': ['hola pelicula mala triste sueño']}
+# df2 = pd.DataFrame(df2)
+# result = pipeline.predict(df2)
+# print(result)
 
 
 app.add_middleware(
