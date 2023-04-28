@@ -4,8 +4,8 @@ import React from "react";
 function Footer () {
     return (
         
-    <nav class="navbar fixed-bottom navbar-light bg-light">
-      <a class="navbar-brand" href="#">
+    <nav className="navbar fixed-bottom navbar-light bg-light">
+      <a className="navbar-brand" href="#">
         <img src="./ai.png" width="30" height="30" alt="" href="https://www.flaticon.com/free-icons/machine-learning" />
            Inteligencia de Negocios
       </a>

@@ -10,7 +10,7 @@ function FormAnalytic () {
     const [archivo, setArchivo] = useState()
     const [review, setReview] = useState('')
     const [resultadoArchivo, setResultadoArchivo] = useState("")
-    const [resultadoTexto, setResultadoTexto] = useState("")
+    const [resultadoTexto, setResultadoTexto] = useState({reviews: [], sentimientos: []})
 
     function handleFileChange(event) {
         setArchivo(event.target.files[0])
@@ -52,7 +52,10 @@ function FormAnalytic () {
         const url = 'http://localhost:8000/predictText';
         const data = { 'review_es' : review };
         axios.post(url, data).then((response) => {
-          console.log(response.data);   setResultadoTexto(response.data) });
+          console.log(response.data);   setResultadoTexto((prevResultados) => ({
+            reviews: prevResultados.reviews.concat(response.data.review),
+            sentimientos: prevResultados.sentimientos.concat(response.data.result),
+          })); });
     }
     return (
         <div>
@@ -79,7 +82,7 @@ function FormAnalytic () {
                 </div>
             </div> 
             <br></br>
-            {resultadoTexto ? <ResultadosTabla resultados={resultadoTexto} /> : null}
+            {resultadoTexto.reviews.length ? <ResultadosTabla resultados={resultadoTexto} /> : null}
         </div>
 
     )

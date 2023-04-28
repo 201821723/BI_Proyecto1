@@ -8,14 +8,14 @@ function ResultadosTabla(props) {
     return (
       <tr key={res}>
         <td>{res}</td>
-        <td>{resultados.result[index]}</td>
+        <td>{resultados.sentimientos[index]}</td>
       </tr>
     );
   }
 
   return (
     <div>
-      <h2>Resultados</h2>
+      <h2>Resultados Individuales</h2>
       <table className="table table-hover">
         <thead>
           <tr>
@@ -24,7 +24,8 @@ function ResultadosTabla(props) {
           </tr>
         </thead>
         <tbody>
-           { resultados.review.map((texto, index) => crearFila(texto, index))}
+          {console.log(resultados)}
+           { resultados.reviews.map((texto, index) => crearFila(texto, index))}
         </tbody>
       </table>
 
