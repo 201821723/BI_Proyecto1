@@ -13,6 +13,8 @@ import sys
 import json
 import dill
 
+from fastapi import File, UploadFile
+
 import re
 import unicodedata
 import nltk
@@ -31,30 +33,10 @@ from nltk.corpus import stopwords
 app = FastAPI()
 
 
+filename = "C:/Users/andre/Downloads/modelo_cp.joblib"
+with open(filename, 'rb') as f:
+        pipeline = dill.load(f)
 
-
-
-# filename = "C:/Users/andre/Downloads/modelo100.joblib"
-# with open(filename, 'rb') as f:
-#    pipeline = dill.load(f)
-# import re
-# import stanza
-# import unicodedata
-# import nltk
-# nltk.download('stopwords')
-# from nltk.corpus import stopwords
-# from stanza.pipeline.processor import Processor, register_processor
-# stanza.download('es')
-# from num2words import num2words
-# from langdetect import detect
-
-# nltk.download('stopwords')
-# from nltk.corpus import stopwords
-
-# df2 = {'review_es': ['hola pelicula mala triste sueño']}
-# df2 = pd.DataFrame(df2)
-# result = pipeline.predict(df2)
-# print(result)
 
 
 app.add_middleware(
@@ -71,18 +53,19 @@ def read_root():
     return {"InteligenciaNegocios": "Proyecto1Etapa2"}
 
 
-@app.post("/predict")
-def make_predictions():
-    filename = "C:/Users/kga_2/Downloads/modelo_cp.joblib"
-    with open(filename, 'rb') as f:
-        pipeline = dill.load(f)
+@app.post("/predictText")
+def make_predictions(data: dict):
+    text = data['review_es']
+    df = pd.DataFrame({'review_es': [text]})
+    result = pipeline.predict(df)
+    return {"review": [text] , "result": result.tolist()}
 
-    df2 = {'review_es': ['hola pelicula mala triste sueño']}
-    df2 = pd.DataFrame(df2)
-    result = pipeline.predict(df2)
-    print(result)
+@app.post("/predict")
+def make_predictions(file: UploadFile = File(...)):
+    df = pd.read_csv(file.file, sep = ',')
+    result = pipeline.predict(df.sample(5))
     return json.dumps({"result": result.tolist()})
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=3000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
