@@ -15,7 +15,7 @@ function Descargar(props) {
         useTextFile: true,
         useBom: true,
         useKeysAsHeaders: false,
-     headers: ['review_es', 'sentimiento']// <-- Won't work with useKeysAsHeaders present!
+     headers: ['', 'review_es', 'sentimiento']// <-- Won't work with useKeysAsHeaders present!
       };
      
     const csvExporter = new ExportToCsv(options);

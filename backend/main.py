@@ -66,7 +66,7 @@ def make_predictions(file: UploadFile = File(...)):
     df = df.sample(10)
     result = pipeline.predict(df)
     df['sentimiento'] = result
-    return df['review_es','sentimiento'].to_json(orient = 'records')
+    return df.to_json(orient = 'records')
 
 
 if __name__ == "__main__":

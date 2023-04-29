@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { Bar } from "react-chartjs-2";
-
-function PredictionResult({ predictionResult }) {
+function PredictionResult({ resultados }) {
   const [chartData, setChartData] = useState(null);
 
   // Calcular la cantidad de reseñas positivas y negativas
-  const numPositive = predictionResult.result.filter((r) => r === "positive").length;
-  const numNegative = predictionResult.result.filter((r) => r === "negative").length;
+  console.log(resultados)
+  const numPositive = resultados.sentimientos.filter((r) => r === "positivo").length;
+  const numNegative = resultados.sentimientos.filter((r) => r === "negativo").length;
 
   // Crear el objeto de datos para el gráfico
   const data = {
@@ -39,7 +37,7 @@ function PredictionResult({ predictionResult }) {
     <div>
       <h2>Resultados de la predicción</h2>
       <p>
-        Total de reseñas: <strong>{predictionResult.result.length}</strong>
+        Total de reseñas: <strong>{resultados.sentimientos.length}</strong>
       </p>
       <Bar data={data} options={options} />
     </div>

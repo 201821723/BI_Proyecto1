@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import {Form, Button} from 'react-bootstrap';
 import axios from 'axios';
-import ResultAnalytic from './resultAnalytic';
-import ResultadosTabla from "./resultadoTabla";
 import './formAnalytic.css'
+
+import ResultadosTabla from "./resultadoTabla";
+import Plots     from "./plots";
 import Descargar from "./descargaResultados";
 
 // Funcion NavbarMarvel
 function FormAnalytic () {
     const [archivo, setArchivo] = useState()
     const [review, setReview] = useState('')
-    const [resultadoArchivo, setResultadoArchivo] = useState('')
+    const [resultadoArchivo, setResultadoArchivo] = useState([])
     const [resultadoTexto, setResultadoTexto] = useState({reviews: [], sentimientos: []})
 
     function handleFileChange(event) {
@@ -44,7 +45,7 @@ function FormAnalytic () {
           },
         };
         axios.post(url, formData, config).then((response) => {
-          console.log(response.data);   setResultadoArchivo(response.data);
+          console.log(response.data);   setResultadoArchivo(JSON.parse(response.data));
         }); 
     }
 
@@ -84,7 +85,7 @@ function FormAnalytic () {
             </div> 
             <br></br>
             {resultadoTexto.reviews.length ? <ResultadosTabla resultados={resultadoTexto} /> : null}
-            <Descargar resultados={resultadoArchivo} />
+            {resultadoArchivo.length ? <Plots resultados={resultadoArchivo} /> :null}
         </div>
 
     )
