@@ -5,7 +5,7 @@ import './formAnalytic.css'
 
 import ResultadosTabla from "./resultadoTabla";
 import Plots     from "./plots";
-import Descargar from "./descargaResultados";
+
 
 // Funcion NavbarMarvel
 function FormAnalytic () {
@@ -84,8 +84,20 @@ function FormAnalytic () {
                 </div>
             </div> 
             <br></br>
-            {resultadoTexto.reviews.length ? <ResultadosTabla resultados={resultadoTexto} /> : null}
-            {resultadoArchivo.length ? <Plots resultados={resultadoArchivo} /> :null}
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="texto-tab" data-toggle="tab" href="#texto" role="tab" aria-controls="texto" aria-selected="true">Resultado texto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="file-tab" data-toggle="tab" href="#file" role="tab" aria-controls="file" aria-selected="false">Resultado Archivo</a>
+                    </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="texto" role="tabpanel" aria-labelledby="texto-tab"> {resultadoTexto.reviews.length ? <ResultadosTabla resultados={resultadoTexto} /> : null}</div>
+                <div class="tab-pane fade" id="file" role="tabpanel" aria-labelledby="file-tab"> {resultadoArchivo.length ? <Plots resultados={resultadoArchivo} /> :null}</div>
+            </div>
+            <br></br>
+            <br></br>
         </div>
 
     )

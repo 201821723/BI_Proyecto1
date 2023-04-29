@@ -25,7 +25,7 @@ function Descargar(props) {
 
   return (
     <div>
-     <button type="button" className="btn btn-secondary" onClick={descargar}>Secondary</button>
+     <button type="button" className="btn btn-secondary" onClick={descargar}>Descargar Predicciones</button>
     </div>
   );
 }

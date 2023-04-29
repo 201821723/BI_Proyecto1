@@ -15,7 +15,9 @@ function ResultadosTabla(props) {
 
   return (
     <div>
+      <br></br>
       <h2>Resultados Individuales</h2>
+      <br></br>
       <table className="table table-hover">
         <thead>
           <tr>
