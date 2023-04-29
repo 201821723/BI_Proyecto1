@@ -75,7 +75,7 @@ function FormAnalytic () {
                     <Form onSubmit={enviarArchivo}>
                         <Form.Group className="mt-3">
                             <Form.Label><b>Analizar multiples reseñas</b></Form.Label>
-                            <Form.Control type="file" placeholder="selecciona un archivo" id="archivo" onChange={handleFileChange}/>
+                            <Form.Control type="file" text id="archivo" onChange={handleFileChange}/>
                         </Form.Group>
                         <Button className="btn btn-danger" type="submit">
                             Enviar

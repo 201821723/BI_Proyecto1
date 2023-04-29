@@ -7,17 +7,17 @@ function Header () {
         <div className="row">
             <div className="col">
             <center>
-                <img src="./popcorn.png" alt="popcorn2" style={{width:'100px',height:'100px'}}/>
+                <img src="./popcorn.png" alt="popcorn2" style={{width:'80px',height:'80px'}}/>
             </center>
             </div>
             <div className="col-6">
             <center>
-                <h1 style={{color:'#FEC20C',padding:'20px'}}>Analisis reseñas de peliculas</h1>
+                <h1 style={{color:'#FEC20C',padding:'10px'}}>Analisis reseñas de peliculas</h1>
             </center>
             </div>
             <div className="col">
             <center>
-                <img src="./popcorn.png" alt="popcorn2"style={{width:'100px',height:'100px'}}/>
+                <img src="./popcorn.png" alt="popcorn2"style={{width:'80px',height:'80px'}}/>
             </center>
             </div>
       </div>
