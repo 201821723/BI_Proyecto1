@@ -63,8 +63,10 @@ def make_predictions(data: dict):
 @app.post("/predict")
 def make_predictions(file: UploadFile = File(...)):
     df = pd.read_csv(file.file, sep = ',')
-    result = pipeline.predict(df.sample(5))
-    return json.dumps({"result": result.tolist()})
+    df = df.sample(10)
+    result = pipeline.predict(df)
+    df['sentimiento'] = result
+    return df['review_es','sentimiento'].to_json(orient = 'records')
 
 
 if __name__ == "__main__":

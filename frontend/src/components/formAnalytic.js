@@ -4,12 +4,13 @@ import axios from 'axios';
 import ResultAnalytic from './resultAnalytic';
 import ResultadosTabla from "./resultadoTabla";
 import './formAnalytic.css'
+import Descargar from "./descargaResultados";
 
 // Funcion NavbarMarvel
 function FormAnalytic () {
     const [archivo, setArchivo] = useState()
     const [review, setReview] = useState('')
-    const [resultadoArchivo, setResultadoArchivo] = useState("")
+    const [resultadoArchivo, setResultadoArchivo] = useState('')
     const [resultadoTexto, setResultadoTexto] = useState({reviews: [], sentimientos: []})
 
     function handleFileChange(event) {
@@ -44,7 +45,7 @@ function FormAnalytic () {
         };
         axios.post(url, formData, config).then((response) => {
           console.log(response.data);   setResultadoArchivo(response.data);
-        });
+        }); 
     }
 
     async function prediccionTexto() {
@@ -83,6 +84,7 @@ function FormAnalytic () {
             </div> 
             <br></br>
             {resultadoTexto.reviews.length ? <ResultadosTabla resultados={resultadoTexto} /> : null}
+            <Descargar resultados={resultadoArchivo} />
         </div>
 
     )
