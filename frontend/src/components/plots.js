@@ -1,5 +1,4 @@
 import React from 'react';
-import Plot from 'react-plotly.js';
 import Descargar from './descargaResultados';
 import ResultadosTabla from './resultadoTabla';
 import { useEffect, useRef } from 'react';
@@ -16,21 +15,7 @@ function Plots(props) {
   const numNegative = resultados.filter(value => value.sentimiento === 'negativo').length;
   const plotRef = useRef(null);
 
-  useEffect(() => {
-    setResultadosFiltrados(
-      resultados.filter((res) => {
-        if (mostrarNegativos && mostrarPositivos) {
-          return true;
-        } else if (mostrarNegativos) {
-          return res.sentimiento === "negativo";
-        } else if (mostrarPositivos) {
-          return res.sentimiento === "positivo";
-        }
-      })
-    );
-  }, [mostrarNegativos, mostrarPositivos, resultados]);
-
-  useEffect(() => {
+  const inicializarGrafico = () => {
     const myPlot = plotRef.current;
     let data = [
       {
@@ -56,9 +41,26 @@ function Plots(props) {
     };
 
     myPlot.on('plotly_legendclick', onLegendClick);
-  }, []);
+  };
 
-  console.log( mostrarPositivos, mostrarNegativos);
+  React.useEffect(() => {
+    inicializarGrafico();
+  }, [resultados]);
+
+  useEffect(() => {
+    setResultadosFiltrados(
+      resultados.filter((res) => {
+        if (mostrarNegativos && mostrarPositivos) {
+          return true;
+        } else if (mostrarNegativos) {
+          return res.sentimiento === "negativo";
+        } else if (mostrarPositivos) {
+          return res.sentimiento === "positivo";
+        }
+      })
+    );
+  }, [mostrarNegativos, mostrarPositivos, resultados]);
+
   return (
 
     <div>

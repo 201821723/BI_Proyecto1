@@ -13,6 +13,8 @@ function FormAnalytic () {
     const [review, setReview] = useState('')
     const [resultadoArchivo, setResultadoArchivo] = useState([])
     const [resultadoTexto, setResultadoTexto] = useState([])
+    const [mensajeFile, setMensajeFile] = useState(null) 
+    const [mensajeText, setMensajeText] = useState(null) 
 
     function handleFileChange(event) {
         setArchivo(event.target.files[0])
@@ -44,8 +46,9 @@ function FormAnalytic () {
             'content-type': 'multipart/form-data',
           },
         };
+        setMensajeFile('Enviando archivo...')
         axios.post(url, formData, config).then((response) => {
-          console.log(response.data);   setResultadoArchivo(JSON.parse(response.data));
+          console.log(response.data);   setResultadoArchivo(JSON.parse(response.data)) ; setMensajeFile('Enviado correctamente');
         }); 
     }
 
@@ -53,8 +56,9 @@ function FormAnalytic () {
 
         const url = 'http://localhost:8000/predictText';
         const data = { 'review_es' : review };
+        setMensajeText('Enviando texto...')
         axios.post(url, data).then((response) => {
-            console.log(response.data);   setResultadoTexto([...resultadoTexto, {review_es: response.data.review_es, sentimiento: response.data.sentimiento}]);});
+            console.log(response.data);   setResultadoTexto([...resultadoTexto, {review_es: response.data.review_es, sentimiento: response.data.sentimiento}]);  setMensajeText('Enviado correctamente');});
       }
     return (
         <div>
@@ -67,16 +71,18 @@ function FormAnalytic () {
                         </Form.Group>
                        <Button className="btn btn-danger" type="submit">
                             Enviar
-                        </Button>   
+                        </Button> 
+                        <span> {mensajeText}</span>  
                     </Form>
                     <Form onSubmit={enviarArchivo}>
                         <Form.Group className="mt-3">
-                            <Form.Label><b>Analizar multiples reseñas</b></Form.Label>
+                            <Form.Label><b>Analizar multiples reseñas (adjunta un archivo CSV)</b></Form.Label>
                             <Form.Control type="file" text id="archivo" onChange={handleFileChange}/>
                         </Form.Group>
                         <Button className="btn btn-danger" type="submit">
                             Enviar
                         </Button>   
+                        <span> {mensajeFile}</span>
                     </Form>
                 </div>
             </div> 
