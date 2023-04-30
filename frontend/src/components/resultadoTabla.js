@@ -7,6 +7,7 @@ function ResultadosTabla(props) {
   function crearFila(res, index) {
     return (
       <tr key={index}>
+        <td>{index}</td>
         <td>{res.review_es}</td>
         <td>{res.sentimiento}</td>
       </tr>
@@ -21,6 +22,7 @@ function ResultadosTabla(props) {
       <table className="table table-hover table-striped">
         <thead>
           <tr>
+          <th  scope="col">#</th>
             <th  scope="col">Reseña</th>
             <th  scope="col">Sentimiento</th>
           </tr>

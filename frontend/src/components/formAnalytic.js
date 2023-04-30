@@ -46,7 +46,7 @@ function FormAnalytic () {
             'content-type': 'multipart/form-data',
           },
         };
-        setMensajeFile('Enviando archivo...')
+        setMensajeFile('Procesando archivo...')
         axios.post(url, formData, config).then((response) => {
           console.log(response.data);   setResultadoArchivo(JSON.parse(response.data)) ; setMensajeFile('Enviado correctamente');
         }); 
@@ -56,7 +56,7 @@ function FormAnalytic () {
 
         const url = 'http://localhost:8000/predictText';
         const data = { 'review_es' : review };
-        setMensajeText('Enviando texto...')
+        setMensajeText('Procesando texto...')
         axios.post(url, data).then((response) => {
             console.log(response.data);   setResultadoTexto([...resultadoTexto, {review_es: response.data.review_es, sentimiento: response.data.sentimiento}]);  setMensajeText('Enviado correctamente');});
       }
