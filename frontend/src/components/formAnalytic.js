@@ -12,7 +12,7 @@ function FormAnalytic () {
     const [archivo, setArchivo] = useState()
     const [review, setReview] = useState('')
     const [resultadoArchivo, setResultadoArchivo] = useState([])
-    const [resultadoTexto, setResultadoTexto] = useState({reviews: [], sentimientos: []})
+    const [resultadoTexto, setResultadoTexto] = useState([])
 
     function handleFileChange(event) {
         setArchivo(event.target.files[0])
@@ -54,11 +54,8 @@ function FormAnalytic () {
         const url = 'http://localhost:8000/predictText';
         const data = { 'review_es' : review };
         axios.post(url, data).then((response) => {
-          console.log(response.data);   setResultadoTexto((prevResultados) => ({
-            reviews: prevResultados.reviews.concat(response.data.review),
-            sentimientos: prevResultados.sentimientos.concat(response.data.result),
-          })); });
-    }
+            console.log(response.data);   setResultadoTexto([...resultadoTexto, {review_es: response.data.review_es, sentimiento: response.data.sentimiento}]);});
+      }
     return (
         <div>
             <div className="jumbotron"  style={{backgroundColor: '#e1e2e1'}}>
@@ -84,17 +81,17 @@ function FormAnalytic () {
                 </div>
             </div> 
             <br></br>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="texto-tab" data-toggle="tab" href="#texto" role="tab" aria-controls="texto" aria-selected="true">Resultado texto</a>
+            <ul className="nav nav-tabs" id="myTab" role="tablist">
+                    <li className="nav-item">
+                        <a className="nav-link active" id="texto-tab" data-toggle="tab" href="#texto" role="tab" aria-controls="texto" aria-selected="true">Resultado texto</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="file-tab" data-toggle="tab" href="#file" role="tab" aria-controls="file" aria-selected="false">Resultado Archivo</a>
+                    <li className="nav-item">
+                        <a className="nav-link" id="file-tab" data-toggle="tab" href="#file" role="tab" aria-controls="file" aria-selected="false">Resultado Archivo</a>
                     </li>
             </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="texto" role="tabpanel" aria-labelledby="texto-tab"> {resultadoTexto.reviews.length ? <ResultadosTabla resultados={resultadoTexto} /> : null}</div>
-                <div class="tab-pane fade" id="file" role="tabpanel" aria-labelledby="file-tab"> {resultadoArchivo.length ? <Plots resultados={resultadoArchivo} /> :null}</div>
+            <div className="tab-content" id="myTabContent">
+                <div className="tab-pane fade show active" id="texto" role="tabpanel" aria-labelledby="texto-tab"> {resultadoTexto.length ? <ResultadosTabla resultados={resultadoTexto} /> : null}</div>
+                <div className="tab-pane fade" id="file" role="tabpanel" aria-labelledby="file-tab"> {resultadoArchivo.length ? <Plots resultados={resultadoArchivo} /> :null}</div>
             </div>
             <br></br>
             <br></br>

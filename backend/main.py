@@ -58,7 +58,7 @@ def make_predictions(data: dict):
     text = data['review_es']
     df = pd.DataFrame({'review_es': [text]})
     result = pipeline.predict(df)
-    return {"review": [text] , "result": result.tolist()}
+    return {"review_es": [text] , "sentimiento": result.tolist()}
 
 @app.post("/predict")
 def make_predictions(file: UploadFile = File(...)):

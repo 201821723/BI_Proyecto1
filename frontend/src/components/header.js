@@ -12,7 +12,7 @@ function Header () {
             </div>
             <div className="col-6">
             <center>
-                <h1 style={{color:'#FEC20C',padding:'10px'}}>Analisis reseñas de peliculas</h1>
+            <a href="#"><h1 style={{color:'#FEC20C',padding:'10px'}}>Analisis reseñas de peliculas</h1></a>
             </center>
             </div>
             <div className="col">

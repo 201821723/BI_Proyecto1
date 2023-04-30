@@ -1,14 +1,14 @@
 import React from 'react';
 
 function ResultadosTabla(props) {
-  const { resultados } = props;
+  const { resultados, titulo = "Resultados individuales"} = props;
 
   // Función para crear una fila de la tabla de resultados
   function crearFila(res, index) {
     return (
-      <tr key={res}>
-        <td>{res}</td>
-        <td>{resultados.sentimientos[index]}</td>
+      <tr key={index}>
+        <td>{res.review_es}</td>
+        <td>{res.sentimiento}</td>
       </tr>
     );
   }
@@ -16,9 +16,9 @@ function ResultadosTabla(props) {
   return (
     <div>
       <br></br>
-      <h2>Resultados Individuales</h2>
+      <h2>{titulo}</h2>
       <br></br>
-      <table className="table table-hover">
+      <table className="table table-hover table-striped">
         <thead>
           <tr>
             <th  scope="col">Reseña</th>
@@ -27,7 +27,7 @@ function ResultadosTabla(props) {
         </thead>
         <tbody>
           {console.log(resultados)}
-           { resultados.reviews.map((texto, index) => crearFila(texto, index))}
+           { resultados.map((res, index) => crearFila(res, index))}
         </tbody>
       </table>
 
